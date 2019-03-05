@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 
-/**
+/**类目表
  * User: cuiyubao
  * Date: 2019/3/4
  * Time: 下午 07:20
