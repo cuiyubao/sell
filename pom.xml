@@ -12,6 +12,7 @@
     <artifactId>sell</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>sell</name>
+    <packaging>war</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -54,8 +55,21 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+
+                <executions>
+                    <execution>
+                        <configuration>
+                            <mainClass>com.imooc.SellApplication</mainClass>
+                        </configuration>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
+
+
 
 </project>
