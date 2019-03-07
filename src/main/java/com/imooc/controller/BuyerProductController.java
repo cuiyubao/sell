@@ -54,26 +54,24 @@ public class BuyerProductController {
         List<ProductCategory> productCategoryList = categoryService.findByCategoryTypeIn(categoryTypeList);
 
         //3数据的拼装
-        List<ProductVO> productVOList=new ArrayList<>();
+        List<ProductVO> productVOList = new ArrayList<>();
 
-        for(ProductCategory productCategory:productCategoryList){
-            ProductVO productVO=new ProductVO();
+        for (ProductCategory productCategory : productCategoryList) {
+            ProductVO productVO = new ProductVO();
             productVO.setCategoryType(productCategory.getCategoryType());
             productVO.setCategoryName(productCategory.getCategoryName());
 
-            List<ProductInfoVO> productInfoVOList=new ArrayList<>();
-            for(ProductInfo productInfo:productInfoList){
-                if(productInfo.getCategoryType().equals(productCategory.getCategoryType())){
-                    ProductInfoVO productInfoVO=new ProductInfoVO();
-                    BeanUtils.copyProperties(productInfo,productInfoVO);
+            List<ProductInfoVO> productInfoVOList = new ArrayList<>();
+            for (ProductInfo productInfo : productInfoList) {
+                if (productInfo.getCategoryType().equals(productCategory.getCategoryType())) {
+                    ProductInfoVO productInfoVO = new ProductInfoVO();
+                    BeanUtils.copyProperties(productInfo, productInfoVO);
                     productInfoVOList.add(productInfoVO);
                 }
             }
             productVO.setProductInfoVOList(productInfoVOList);
             productVOList.add(productVO);
-
         }
-
         return ResultVOUtil.success(productVOList);
     }
 
