@@ -1,28 +1,28 @@
-package com.imooc.dataobject;
+package com.imooc.dto;
 
-import com.imooc.enums.OrderStatusEnum;
-import com.imooc.enums.PayStatusEnum;
+import com.imooc.dataobject.OrderDetail;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
-/**订单主表
+/**
  * User: cuiyubao
- * Date: 2019/3/7
- * Time: 下午 06:47
+ * Date: 2019/3/10
+ * Time: 下午 11:12
  */
 @Entity
 @Data
 @DynamicUpdate//动态更新时间
-public class OrderMaster {
+public class OrderDTO {
+
     /**
      *订单id
      */
-    @Id
     private String orderId;
     /**
      *买家名字
@@ -47,11 +47,11 @@ public class OrderMaster {
     /**
      *订单状态，默认0新下单
      */
-    private Integer orderStatus=OrderStatusEnum.NEW.getCode();
+    private Integer orderStatus;
     /**
      *支付状态，默认0未支付
      */
-    private Integer payStatus=PayStatusEnum.WAIT.getCode();
+    private Integer payStatus;
     /**
      *创建时间
      */
@@ -61,8 +61,7 @@ public class OrderMaster {
      */
     private Date updateTime;
 
-//    @Transient//和数据库对应的时候忽略这个字段
-//    private List<OrderMaster> orderMasterList;
-
+    @Transient//和数据库对应的时候忽略这个字段
+    private List<OrderDetail> orderDetails ;
 
 }
