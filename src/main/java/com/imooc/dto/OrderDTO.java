@@ -2,9 +2,7 @@ package com.imooc.dto;
 
 import com.imooc.dataobject.OrderDetail;
 import lombok.Data;
-import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
 import javax.persistence.Transient;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,9 +13,7 @@ import java.util.List;
  * Date: 2019/3/10
  * Time: 下午 11:12
  */
-@Entity
 @Data
-@DynamicUpdate//动态更新时间
 public class OrderDTO {
 
     /**
@@ -62,6 +58,6 @@ public class OrderDTO {
     private Date updateTime;
 
     @Transient//和数据库对应的时候忽略这个字段
-    private List<OrderDetail> orderDetails ;
+    private List<OrderDetail> orderDetailList ;
 
 }
