@@ -1,6 +1,8 @@
 package com.imooc.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.imooc.dataobject.OrderDetail;
+import com.imooc.utils.serializer.Date2LongSerializer;
 import lombok.Data;
 
 import javax.persistence.Transient;
@@ -14,6 +16,7 @@ import java.util.List;
  * Time: 下午 11:12
  */
 @Data
+//@JsonInclude(JsonInclude.Include.NON_NULL) //限制空字段不返回
 public class OrderDTO {
 
     /**
@@ -51,13 +54,15 @@ public class OrderDTO {
     /**
      *创建时间
      */
+    @JsonSerialize(using=Date2LongSerializer.class)
     private Date createTime;
     /**
      *修改时间
      */
+    @JsonSerialize(using=Date2LongSerializer.class)
     private Date updateTime;
 
     @Transient//和数据库对应的时候忽略这个字段
-    private List<OrderDetail> orderDetailList ;
+    private List<OrderDetail> orderDetailList;
 
 }
