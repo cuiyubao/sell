@@ -14,7 +14,14 @@ import java.util.Date;
  * Time: 下午 09:25
  */
 public class Date2LongSerializer extends JsonSerializer<Date> {
-
+    /**
+     * 将时间缩小1000倍
+     * @param date
+     * @param jsonGenerator
+     * @param serializerProvider
+     * @throws IOException
+     * @throws JsonProcessingException
+     */
     @Override
     public void serialize(Date date, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
         jsonGenerator.writeNumber(date.getTime()/1000);
