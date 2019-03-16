@@ -10,3 +10,6 @@ spring:
 #    default-property-inclusion: non_null      #全局设置空字段不返回
 server:
   context-path: /sell
+wechat:
+  mpAppId: wx361c68306edbdd4a
+  mpAppSecret: dae32c48f861063df5dbfa58891bc22a
