@@ -13,3 +13,6 @@ server:
 wechat:
   mpAppId: wx361c68306edbdd4a
   mpAppSecret: dae32c48f861063df5dbfa58891bc22a
+  mchId: 1409146202
+  mchKey: 444
+  keyPath: 4444
