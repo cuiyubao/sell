@@ -16,3 +16,4 @@ wechat:
   mchId: 1409146202
   mchKey: 444
   keyPath: 4444
+  notifyUrl: http://dabao.natapp1.cc/sell/pay/notify
