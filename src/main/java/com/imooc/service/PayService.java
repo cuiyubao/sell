@@ -1,6 +1,7 @@
 package com.imooc.service;
 
 import com.imooc.dto.OrderDTO;
+import com.lly835.bestpay.model.PayResponse;
 
 /**
  * User: cuiyubao
@@ -8,6 +9,6 @@ import com.imooc.dto.OrderDTO;
  * Time: 下午 11:44
  */
 public interface PayService {
-    void  create(OrderDTO orderDTO);
+    PayResponse create(OrderDTO orderDTO);
 
 }
