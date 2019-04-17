@@ -6,6 +6,7 @@ import com.imooc.exception.SellException;
 import com.imooc.service.OrderService;
 import com.imooc.service.PayService;
 import com.imooc.utils.JsonUtil;
+import com.imooc.utils.MathUtil;
 import com.lly835.bestpay.enums.BestPayTypeEnum;
 import com.lly835.bestpay.model.PayRequest;
 import com.lly835.bestpay.model.PayResponse;
@@ -64,7 +65,7 @@ public class PayServiceImpl implements PayService {
             throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }
         //判断金额是否一致
-        if (!orderDTO.getOrderAmount().equals(payResponse.getOrderAmount())) {
+        if (!MathUtil.equals(payResponse.getOrderAmount(),orderDTO.getOrderAmount().doubleValue()))  {
             log.info("[微信支付], 异步通知，订单金额是否一致，orderId={},微信通知金额={}，系统金额={}", payResponse.getOrderId(), orderDTO.getOrderAmount(), payResponse.getOrderAmount());
             throw new SellException(ResultEnum.WXPAY_NOTIFY_VERIFY_ERROR);
         }
