@@ -1,57 +1,52 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<configuration>
-    <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+<?xml version="1.0" ?>
+<configuration debug="true">
+    <!-- 定义日志的根目录 -->
+    <property name="LOG_HOME" value="./log" />
+    <!--日志的服务名：如【ES_SYN_SERVER-ES库数据同步服务】、【MSG_DIS_SERVER-告警消息分发服务】、【HANDLER_SERVER-告警处理服务】-->
+    <property name="SERVER_NAME" value="ALARM_DISPOSE" />
+    <!-- 日志最大的历史天数 -->
+    <property name="MAX_HISTORY" value="30" />
+    <!-- 日志文件大小,超过这个大小将被压缩 -->
+    <property name="LOG_MAX_SIZE" value="1024MB" />
+    <!--日志反动策略-->
+    <!--%d{yyyy-MM-dd HH:mm:ss.SSS}:[%thread]:%-5level:%logger{36}:%msg%n-->
+    <property name="LOG_PATTERN" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}]:%level:${SERVER_NAME}:%class.java:%line:%msg%n" />
+
+    <!-- 用来保存输出所有级别的日志 -->
+    <appender name="fileAllLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 设置日志不超过${LOG_MAX_SIZE}时的保存路径，注意如果是web项目会保存到Tomcat的bin目录 下 -->
+        <File>${LOG_HOME}/${SERVER_NAME}.log</File>
+        <!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件。 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/run.%d{yyyy-MM-dd}.%i.log.zip</FileNamePattern>
+            <!-- 文件输出日志 (文件大小策略进行文件输出，超过指定大小对文件备份) -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${LOG_MAX_SIZE}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+
+    <!--控制台的日志输出设置-->
+    <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender" >
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+        </filter>
         <layout class="ch.qos.logback.classic.PatternLayout">
-            <pattern>
-               %msg%n
-            </pattern>
+            <pattern>${LOG_PATTERN}</pattern>
         </layout>
     </appender>
 
-    <appender name="fileInfoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>ERROR</level>
-            <onMatch>DENY</onMatch>
-            <onMismatch>ACCEPT</onMismatch>
-        </filter>
-        <encoder>
-            <pattern>
-                %msg%n
-            </pattern>
-        </encoder>
 
-        <!--滚动策略-->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!--路径-->
-            <fileNamePattern>D:/app/info.%d.log</fileNamePattern>
-        </rollingPolicy>
 
-    </appender>
-
-    <appender name="fileErrorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>ERROR</level>
-        </filter>
-        <encoder>
-            <pattern>
-                %msg%n
-            </pattern>
-        </encoder>
-
-        <!--滚动策略-->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!--路径-->
-            <fileNamePattern>D:/app/ERROR.%d.log</fileNamePattern>
-        </rollingPolicy>
-
-    </appender>
-    <root level="info">
-        <appender-ref ref="consoleLog">
-        </appender-ref>
-        <appender-ref ref="fileInfoLog">
-        </appender-ref>
-        <appender-ref ref="fileErrorLog">
-        </appender-ref>
-
+    <root level="DEBUG">
+        <appender-ref ref="fileAllLog" />
+        <appender-ref ref="consoleLog" />
     </root>
+
 </configuration>
