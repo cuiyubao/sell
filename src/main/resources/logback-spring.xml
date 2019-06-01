@@ -3,7 +3,7 @@
     <!-- 定义日志的根目录 -->
     <property name="LOG_HOME" value="./log" />
     <!--日志的服务名：如【ES_SYN_SERVER-ES库数据同步服务】、【MSG_DIS_SERVER-告警消息分发服务】、【HANDLER_SERVER-告警处理服务】-->
-    <property name="SERVER_NAME" value="ALARM_DISPOSE" />
+    <property name="SERVER_NAME" value="sell" />
     <!-- 日志最大的历史天数 -->
     <property name="MAX_HISTORY" value="30" />
     <!-- 日志文件大小,超过这个大小将被压缩 -->
