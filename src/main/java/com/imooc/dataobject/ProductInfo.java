@@ -1,5 +1,8 @@
 package com.imooc.dataobject;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.imooc.enums.ProductStatusEnum;
+import com.imooc.utils.EnumUtil;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -15,53 +18,55 @@ import java.util.Date;
  * Date: 2019/3/5
  * Time: 下午 08:37
  */
-@Table(name="product_info")
+@Table(name = "product_info")
 @Entity
 @Data
 @DynamicUpdate//动态更新时间
 public class ProductInfo {
     @Id
-    private String  productId;
+    private String productId;
 
     /**
-     *商品名称
+     * 商品名称
      */
     private String productName;
     /**
-     *单价
+     * 单价
      */
     private BigDecimal productPrice;
     /**
-     *库存
+     * 库存
      */
     private Integer productStock;
     /**
-     *描述
+     * 描述
      */
     private String productDescription;
     /**
-     *小图
+     * 小图
      */
-    private String  productIcon;
+    private String productIcon;
     /**
-     *状态
+     * 状态
      */
-    private Integer  productStatus;
+    private Integer productStatus;
     /**
-     *类目编号
+     * 类目编号
      */
-    private Integer  categoryType;
+    private Integer categoryType;
     /**
-     *创建时间
+     * 创建时间
      */
     private Date createTime;
     /**
-     *修改时间
+     * 修改时间
      */
-    private  Date updateTime;
+    private Date updateTime;
 
-
-
+    @JsonIgnore
+    public ProductStatusEnum getProductStatusEnum() {
+        return EnumUtil.getByCode(productStatus, ProductStatusEnum.class);
+    }
 
 
 }
