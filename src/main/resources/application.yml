@@ -6,6 +6,9 @@ spring:
     url: jdbc:mysql://47.98.192.65/test?characterEncoding=utf-8&useSSL=false
   jpa:
     show-sql: true
+  redis:
+    host: 192.168.30.113
+    port: 6379
 #  jackson:
 #    default-property-inclusion: non_null      #全局设置空字段不返回
 server:
@@ -17,3 +20,9 @@ wechat:
   mchKey: 444
   keyPath: /var/weixin_cert/h5.p12
   notifyUrl: http://dabao.natapp1.cc/sell/pay/notify
+  openAppId: wx361c68306edbdd4a
+  openAppSecret: dae32c48f861063df5dbfa58891bc22a
+projectUrl:
+  wechatMpAuthorize: http://dabao.natapp1.cc
+  wechatOpenAuthorize: http://dabao.natapp1.cc
+  sell: http://dabao.natapp1.cc
