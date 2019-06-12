@@ -47,6 +47,9 @@ public class OrderServiceImpl implements OrderService {
     private OrderMasterRepository orderMasterRepository;
     @Autowired
     private PayService payService;
+    @Autowired
+    private PushMessageServiceImpl pushMessageService;
+
     @Override
     @Transactional
     public OrderDTO creat(OrderDTO orderDTO) {
@@ -149,6 +152,7 @@ public class OrderServiceImpl implements OrderService {
             log.error("【完结订单】订单状态不正确，orderId={}，orderStatus={}", orderDTO.getOrderId(), orderDTO.getOrderStatus());
             throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
         }
+        //修改订单状态
         orderDTO.setOrderStatus(OrderStatusEnum.FINISHED.getCode());
         OrderMaster orderMaster = new OrderMaster();
         BeanUtils.copyProperties(orderDTO, orderMaster);
@@ -157,7 +161,9 @@ public class OrderServiceImpl implements OrderService {
             log.error("[完结订单] 更新失败，orderMaster={}", orderMaster);
             throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
-        //修改订单状态
+        //推送微信模板消息
+          pushMessageService.orderStatus(orderDTO);
+
         return orderDTO;
     }
 
